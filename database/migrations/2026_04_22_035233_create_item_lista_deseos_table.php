@@ -6,20 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('item_lista_deseos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('itemListaID');
+            $table->unsignedBigInteger('listaDeseosID');
+            $table->foreign('listaDeseosID')->references('listaDeseosID')->on('lista_deseos');
+            $table->unsignedBigInteger('productoID');
+            $table->foreign('productoID')->references('productoID')->on('productos');
+            $table->datetime('fechaAgregado')->useCurrent();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('item_lista_deseos');

@@ -6,20 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('productoID');
+            $table->string('nombre');
+            $table->string('album');
+            $table->decimal('precio', 8, 2);
+            $table->integer('stock');
+            $table->datetime('fechaLanzamiento');
+            $table->unsignedBigInteger('artistaID');
+            $table->foreign('artistaID')->references('artistaID')->on('artistas');
+            $table->unsignedBigInteger('generoID');
+            $table->foreign('generoID')->references('generoID')->on('generos');
+            $table->unsignedBigInteger('tipoProductoID');
+            $table->foreign('tipoProductoID')->references('tipoProductoID')->on('tipo_productos');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('productos');

@@ -6,20 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('lista_deseos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('listaDeseosID');
+            $table->unsignedBigInteger('usuarioID');
+            $table->foreign('usuarioID')->references('usuarioID')->on('usuarios');
+            $table->datetime('fechaCreacion')->useCurrent();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('lista_deseos');

@@ -6,20 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('item_carritos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('itemCarritoID');
+            $table->unsignedBigInteger('carritoID');
+            $table->foreign('carritoID')
+          ->references('carritoID')
+          ->on('carrito_compras')
+          ->onDelete('cascade');
+            $table->unsignedBigInteger('productoID');
+            $table->foreign('productoID')->references('productoID')->on('productos');
+            $table->integer('cantidad');
+            $table->decimal('precioUnitario', 8, 2);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('item_carritos');
